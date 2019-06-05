@@ -2,8 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const path = require('path');
-
-const Availability = require('../db/db.js');
+const db = require('../db/db.js');
 
 const app = express();
 
@@ -22,10 +21,11 @@ app.get('/:id', (req, res) => {
   }
 });
 
+//"READ"
 app.get('/:id/reservations', (req, res) => {
   const resID = Number(req.params.id);
 
-  Availability.findOne({ where: { id: resID } })
+  db.Availability.findOne({ where: { id: resID } })
     .then((main) => {
       res.status(200).send(main);
     })
@@ -33,5 +33,44 @@ app.get('/:id/reservations', (req, res) => {
       res.status(404).send('unable to retrieve from db: ', err);
     });
 });
+
+//"CREATE"
+app.post('/reservations', (req, res) => {
+  db.post(req.body, (err) => {
+    if (err) {
+      console.log(err);
+      res.status(500).send('Could not create reservation');
+    } else {
+      res.sendStatus(201);
+    }
+  })
+});
+
+// "UPDATE"
+app.put('/:id/reservations', (req, res) => {
+  const resID = Number(req.params.id)
+  db.put(req.body, resID, (err) => {
+    if (err) {
+      console.log(err);
+      res.status(500).send('Could not update reservation');
+    } else {
+      res.sendStatus(202);
+    }
+})
+});
+
+// "DELETE"
+app.remove('/:id/reservations', (req, res) => {
+  const resID = Number(req.params.id)
+  db.remove(req.body, resID, (err) => {
+    if (err) {
+      console.log(err);
+      res.status(500).send('Could not delete reservation');
+    } else {
+      res.sendStatus(202);
+    }
+})
+});
+
 
 module.exports = app;

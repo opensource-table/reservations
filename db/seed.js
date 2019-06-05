@@ -1,6 +1,6 @@
 const faker = require('faker');
 
-const Availability = require('./db.js');
+const db = require('./db.js');
 
 const seats = () => faker.random.number({
   min: 2,
@@ -12,8 +12,8 @@ const booked = () => faker.random.number({
   max: 15,
 });
 
-Availability.sync({ force: true })
-  .then(() => Availability.create({
+db.Availability.sync({ force: true })
+  .then(() => db.Availability.create({
     name: 'Kinjo',
     booked: booked(),
     '6:00 PM': seats(),
@@ -30,7 +30,7 @@ Availability.sync({ force: true })
   }))
   .then(() => {
     for (let i = 1; i < 100; i++) {
-      Availability.create({
+      db.Availability.create({
         name: faker.lorem.word(),
         booked: booked(),
         '6:00 PM': seats(),

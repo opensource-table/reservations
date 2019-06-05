@@ -15,6 +15,7 @@
 1. [Requirements](#requirements)
 1. [Development](#development)
 1. [Usage](#Usage)
+1. [CrudOperations](#Crud)
 
 ## Requirements
 
@@ -46,3 +47,175 @@ npm run build
 npm start
 ```
 - In a broswer, go to: localhost:3020
+
+## Crud
+
+| Method | URL | Operation |
+|------|----------|-----------|
+| GET  |     '/:id/reservations'     |    Retrieves the data        |
+| POST |    '/reservations'          |           |
+| PUT  |      '/:id/reservations'    |           |
+| DELETE|    '/:id/reservations'     |           |
+
+
+## Create a new restaurant with its availability and data
+
+### URL 
+  /reservations
+
+### Method
+  `POST`
+
+### URL Parameters:
+  none
+
+### Data Parameters:
+  POST will have a JSON.stringified object containing the info for one restaurant
+  
+### Success Response:
+  Code: 201 Created
+
+### Error Response:
+  Code: 500 INTERNAL SERVER ERROR
+  Content: { 'Could not create reservation' }
+
+### Sample Call:
+
+  `$.ajax({
+    url: "/:id/reservations",
+    dataType: "json",
+    type : "POST",
+    success : (err, results) => {
+      if (err) {
+        console.log(err);
+      } else {
+        this.setState({
+          bookings: res.data.booked,
+          resName: res.data.name,
+          allData: res.data,
+        });
+      }
+    }
+  });`
+
+
+## Receive one restaurants availability and data
+
+### URL 
+  /:id/reservations
+
+### Method
+  `GET`
+### URL Parameters:
+  `id=[interger]`
+
+### Data Parameters:
+  GET will have an id on its body payload
+  
+### Success Response:
+  Code: 200 OK
+
+### Error Response:
+  Code: 404 NOT FOUND 
+  Content: { 'unable to retrieve from db: ', err) }
+
+### Sample Call:
+
+  `$.ajax({
+    url: "/:id/reservations",
+    dataType: "json",
+    type : "GET",
+    success : (err, results) => {
+      if (err) {
+        console.log(err);
+      } else {
+        this.setState({
+          bookings: res.data.booked,
+          resName: res.data.name,
+          allData: res.data,
+        });
+      }
+    }
+  });`
+
+
+## Update one restaurants availability and data
+
+### URL 
+  /:id/reservations
+
+### Method
+  `PUT`
+
+### URL Parameters:
+  `id=[interger]`
+
+### Data Parameters:
+  PUT will have an id on its body payload
+    and a JSON.stringified object
+  
+### Success Response:
+  Code: 202 ACCEPTED
+
+### Error Response:
+  Code: 500 INTERNAL SERVER ERROR 
+  Content: { 'Could not update reservation' }
+
+### Sample Call:
+
+  `$.ajax({
+    url: "/:id/reservations",
+    dataType: "json",
+    type : "PUT",
+    success : (err, results) => {
+      if (err) {
+        console.log(err);
+      } else {
+        this.setState({
+          bookings: res.data.booked,
+          resName: res.data.name,
+          allData: res.data,
+        });
+      }
+    }
+  });`
+
+
+## Delete one restaurants availability and data
+
+### URL 
+  /:id/reservations
+
+### Method
+  `DELETE`
+### URL Parameters:
+  `id=[interger]`
+
+### Data Parameters:
+  DELETE will have an id on its body payload
+  
+### Success Response:
+  Code: 202 ACCEPTED
+
+### Error Response:
+  Code: 500 INTERNAL SERVER ERROR 
+  Content: { 'Could not delete reservation' }
+
+### Sample Call:
+
+  `$.ajax({
+    url: "/:id/reservations",
+    dataType: "json",
+    type : "DELETE",
+    success : (err, results) => {
+      if (err) {
+        console.log(err);
+      } else {
+        this.setState({
+          bookings: res.data.booked,
+          resName: res.data.name,
+          allData: res.data,
+        });
+      }
+    }
+  });`
