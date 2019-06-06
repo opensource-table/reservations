@@ -1,4 +1,4 @@
-# freeSeats
+# BOOKINGS
 
 > A user can search for a restaurant based on location, cuisine, or restaurant’s name and visit the restaurant’s page to get an overview of what the restaurant has to offer like photos of their dishes, their menu options, customers’ reviews, and be able to make a reservation.
 
@@ -52,16 +52,16 @@ npm start
 
 | Method | URL | Operation |
 |------|----------|-----------|
-| GET  |     '/:id/reservations'     |    Retrieves the data        |
-| POST |    '/reservations'          |           |
-| PUT  |      '/:id/reservations'    |           |
-| DELETE|    '/:id/reservations'     |           |
+| GET  |     '/:id/bookings'     |    Retrieves the data        |
+| POST |    '/bookings'          |           |
+| PUT  |      '/:id/bookings'    |           |
+| DELETE|    '/:id/bookings'     |           |
 
 
 ## Create a new restaurant with its availability and data
 
 ### URL 
-  /reservations
+  /bookings
 
 ### Method
   `POST`
@@ -70,7 +70,7 @@ npm start
   none
 
 ### Data Parameters:
-  POST will have a JSON.stringified object containing the info for one restaurant
+  POST will have a JSON.stringified object containing the info needed to book a restaurant which includes: the restaurant id, the reservation date, the time  slot, and the party size.
   
 ### Success Response:
   Code: 201 Created
@@ -82,7 +82,7 @@ npm start
 ### Sample Call:
 
   `$.ajax({
-    url: "/:id/reservations",
+    url: "/:id/bookings",
     dataType: "json",
     type : "POST",
     success : (err, results) => {
@@ -102,7 +102,7 @@ npm start
 ## Receive one restaurants availability and data
 
 ### URL 
-  /:id/reservations
+  /:id/bookings
 
 ### Method
   `GET`
@@ -122,7 +122,7 @@ npm start
 ### Sample Call:
 
   `$.ajax({
-    url: "/:id/reservations",
+    url: "/:id/bookings",
     dataType: "json",
     type : "GET",
     success : (err, results) => {
@@ -142,7 +142,7 @@ npm start
 ## Update one restaurants availability and data
 
 ### URL 
-  /:id/reservations
+  /:id/bookings
 
 ### Method
   `PUT`
@@ -151,8 +151,7 @@ npm start
   `id=[interger]`
 
 ### Data Parameters:
-  PUT will have an id on its body payload
-    and a JSON.stringified object
+  PUT will have an id on its body payload and a JSON.stringified object of the info which needs to be updated which could include any of: the restaurant id, the reservation date, the time  slot, and the party size
   
 ### Success Response:
   Code: 202 ACCEPTED
@@ -164,8 +163,10 @@ npm start
 ### Sample Call:
 
   `$.ajax({
-    url: "/:id/reservations",
+    url: "/:id/bookings",
     dataType: "json",
+    data: {containg properties and values that need to be updated},
+    contentType: json,
     type : "PUT",
     success : (err, results) => {
       if (err) {
@@ -184,7 +185,7 @@ npm start
 ## Delete one restaurants availability and data
 
 ### URL 
-  /:id/reservations
+  /:id/bookings
 
 ### Method
   `DELETE`
@@ -204,7 +205,7 @@ npm start
 ### Sample Call:
 
   `$.ajax({
-    url: "/:id/reservations",
+    url: "/:id/bookings",
     dataType: "json",
     type : "DELETE",
     success : (err, results) => {

@@ -12,6 +12,20 @@ app.use(bodyParser.json());
 
 app.use(express.static('public'));
 
+
+app.get('/:id/bookings', (req, res) => {
+  const resID = Number(req.params.id);
+  
+  db.Availability.findOne({ where: { id: resID } })
+  .then((main) => {
+    res.status(200).send(main);
+  })
+  .catch((err) => {
+    res.status(404).send('unable to retrieve from db: ', err);
+  });
+});
+
+//"READ"
 app.get('/:id', (req, res) => {
   if (!req.params.id) {
     res.status(400);
@@ -21,25 +35,12 @@ app.get('/:id', (req, res) => {
   }
 });
 
-//"READ"
-app.get('/:id/reservations', (req, res) => {
-  const resID = Number(req.params.id);
-
-  db.Availability.findOne({ where: { id: resID } })
-    .then((main) => {
-      res.status(200).send(main);
-    })
-    .catch((err) => {
-      res.status(404).send('unable to retrieve from db: ', err);
-    });
-});
-
 //"CREATE"
-app.post('/reservations', (req, res) => {
+app.post('/:id/bookings', (req, res) => {
   db.post(req.body, (err) => {
     if (err) {
       console.log(err);
-      res.status(500).send('Could not create reservation');
+      res.status(500).send('Could not create booking');
     } else {
       res.sendStatus(201);
     }
@@ -47,12 +48,12 @@ app.post('/reservations', (req, res) => {
 });
 
 // "UPDATE"
-app.put('/:id/reservations', (req, res) => {
+app.put('/:id/bookings', (req, res) => {
   const resID = Number(req.params.id)
   db.put(req.body, resID, (err) => {
     if (err) {
       console.log(err);
-      res.status(500).send('Could not update reservation');
+      res.status(500).send('Could not update booking');
     } else {
       res.sendStatus(202);
     }
@@ -60,12 +61,12 @@ app.put('/:id/reservations', (req, res) => {
 });
 
 // "DELETE"
-app.remove('/:id/reservations', (req, res) => {
+app.delete('/:id/bookings', (req, res) => {
   const resID = Number(req.params.id)
-  db.remove(req.body, resID, (err) => {
+  db.remove(resID, (err) => {
     if (err) {
       console.log(err);
-      res.status(500).send('Could not delete reservation');
+      res.status(500).send('Could not delete booking');
     } else {
       res.sendStatus(202);
     }
