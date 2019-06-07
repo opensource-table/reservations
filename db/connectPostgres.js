@@ -79,3 +79,4 @@ const start = Date.now();
             })
         })
 
+        // node --max-old-space-size=8192

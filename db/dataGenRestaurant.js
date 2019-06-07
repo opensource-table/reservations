@@ -7,7 +7,7 @@ var count = 0;
 
 const seats = () => faker.random.number({
   min: 0,
-  max:2,
+  max: 20,
 });
 
 const booked = () => faker.random.number({

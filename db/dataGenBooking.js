@@ -70,7 +70,7 @@ const dataGen  = () => {
     writer.pipe(fs.createWriteStream('bookingData.csv'));
     for (var i = 0; i < 30000000; i++) {
         writer.write({
-            reservation_data: inRangeDate(),
+            reservation_date: inRangeDate(),
             time_slot: randomTimeSlot(),
             party_size: guests(),
             restaurant_id: num1Through10Mil(),
