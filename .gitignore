@@ -28,3 +28,4 @@ public/bundle.js
 package-lock.json
 bookingData.csv
 restaurantData.csv
+restaurantAvailabilityData.csv

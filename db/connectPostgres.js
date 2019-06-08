@@ -56,7 +56,7 @@ const start = Date.now();
                         pool.query(`COPY restaurants(name, booked, "6:00 PM", 
                         "6:15 PM", "6:30 PM", "6:45 PM", "7:00 PM", "7:15 PM", 
                         "7:30 PM", "7:45 PM", "8:00 PM", "8:15 PM", "8:30 PM") 
-                        FROM '/Users/esodey/.Trash/reservations 4.27.51 PM/reservations/restaurantData.csv' DELIMITER ',' CSV HEADER;`
+                        FROM '/Users/esodey/Desktop/SDC/reservations/restaurantData.csv' DELIMITER ',' CSV HEADER;`
                         , (err) => {
                             if (err) {
                                 console.log(err);
@@ -64,7 +64,7 @@ const start = Date.now();
                             console.log('Copied data into table restaurants');
                             pool.query(`COPY bookings(reservation_date, time_slot,
                                 party_size, restaurant_id, created_at)
-                                FROM '/Users/esodey/.Trash/reservations 4.27.51 PM/reservations/bookingData.csv' DELIMITER ',' CSV HEADER;`
+                                FROM '/Users/esodey/Desktop/SDC/reservations/bookingData.csv' DELIMITER ',' CSV HEADER;`
                                 , (err) => {
                                     if (err) {
                                         console.log(err);

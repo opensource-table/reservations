@@ -1,18 +1,10 @@
-// const fs = require('fs');
-// const csvWriter = require('csv-write-stream');
-// var writer = csvWriter();
-var MongoClient = require('mongodb').MongoClient;
-var url = "mongodb://localhost:27017/";
-var faker = require('faker');
-var counter = 1;
+const fs = require('fs');
+const csvWriter = require('csv-write-stream');
+var writer = csvWriter();
 
-MongoClient.connect(url, (err, db) => {
-  if (err) {
-    throw err;
-  }
-  var dbo = db.db("reservations");
-  dbo.collection("restaurants").insertMany()
-})
+var faker = require('faker');
+var count = 0;
+
 
 const seats = () => faker.random.number({
     min: 0,
@@ -73,27 +65,43 @@ const seats = () => faker.random.number({
   
  
 //create
- db.reservations.insert({
-      id: counter++,
-      name: faker.lorem.word(), 
-      booked: booked(),
-      bookings: [{reservation_date: inRangeDate(), time_slot: randomTimeSlot(), party_size: guests(), created_at: dateBooked()},{reservation_date: inRangeDate(), time_slot: randomTimeSlot(), party_size: guests(), created_at: dateBooked()},{reservation_date: inRangeDate(), time_slot: randomTimeSlot(), party_size: guests(), created_at: dateBooked()}],
-      date: {
-      '6:00 PM': seats(),
-      '6:15 PM': seats(),
-      '6:30 PM': seats(),
-      '6:45 PM': seats(),
-      '7:00 PM': seats(),
-      '7:15 PM': seats(),
-      '7:30 PM': seats(),
-      '7:45 PM': seats(),
-      '8:00 PM': seats(),
-      '8:15 PM': seats(),
-      '8:30 PM': seats(),
-      },
-});
 
-// node --max-old-space-size=8192 server.js  
+const dataGen  = () => {
+  writer.pipe(fs.createWriteStream('restaurantAvailabilityData.csv'));
+  for (var i = 0; i < 10000000; i++) {
+      writer.write({
+        id: count++,
+        name: faker.lorem.word(), 
+        booked: booked(),
+        bookings: [{reservation_date: inRangeDate(), time_slot: randomTimeSlot(), party_size: guests(), created_at: dateBooked()},{reservation_date: inRangeDate(), time_slot: randomTimeSlot(), party_size: guests(), created_at: dateBooked()},{reservation_date: inRangeDate(), time_slot: randomTimeSlot(), party_size: guests(), created_at: dateBooked()}],
+        date: {
+        '6:00 PM': seats(),
+        '6:15 PM': seats(),
+        '6:30 PM': seats(),
+        '6:45 PM': seats(),
+        '7:00 PM': seats(),
+        '7:15 PM': seats(),
+        '7:30 PM': seats(),
+        '7:45 PM': seats(),
+        '8:00 PM': seats(),
+        '8:15 PM': seats(),
+        '8:30 PM': seats(),
+      }
+    })
+      count++;
+      if (i % 1000000 === 0) {
+          console.log(i);
+      }
+    }
+    writer.end();
+    console.log('done');
+};
+
+dataGen();
+
+// node --max-old-space-size=8192 db/mongo.js  
+
+// mongoimport --db reservations --collection restaurants --type csv --headerline --file  '/Users/esodey/Desktop/SDC/reservations/restaurantAvailabilityData.csv'
 
 //READ
 
