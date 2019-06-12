@@ -70,7 +70,7 @@ const dataGen  = () => {
   writer.pipe(fs.createWriteStream('restaurantAvailabilityData.csv'));
   for (var i = 0; i < 10000000; i++) {
       writer.write({
-        id: count++,
+        _id: count++,
         name: faker.lorem.word(), 
         booked: booked(),
         bookings: [{reservation_date: inRangeDate(), time_slot: randomTimeSlot(), party_size: guests(), created_at: dateBooked()},{reservation_date: inRangeDate(), time_slot: randomTimeSlot(), party_size: guests(), created_at: dateBooked()},{reservation_date: inRangeDate(), time_slot: randomTimeSlot(), party_size: guests(), created_at: dateBooked()}],
@@ -88,11 +88,7 @@ const dataGen  = () => {
         '8:30 PM': seats(),
       }
     })
-      count++;
-      if (i % 1000000 === 0) {
-          console.log(i);
-      }
-    }
+  }
     writer.end();
     console.log('done');
 };
@@ -103,16 +99,6 @@ dataGen();
 
 // mongoimport --db reservations --collection restaurants --type csv --headerline --file  '/Users/esodey/Desktop/SDC/reservations/restaurantAvailabilityData.csv'
 
-//READ
 
 
-
-
-//UPDATE
-
-
-
-
-
-//DELETE
-
+// db.restaurants.insertOne( { id: 10000001, name: 'link', booked: 3, bookings: [{reservation_date: '2018-6-23', time_slot: '6:30 PM', party_size: 4, created_at: '2018-6-11'}], date: { '6:00 PM': 10, '6:15 PM': 6, '6:30 PM': 12, '6:45 PM': 5, '7:00 PM': 9, '7:15 PM': 8, '7:30 PM': 10, '7:45 PM': 12, '8:00 PM': 4, '8:15 PM': 6, '8:30 PM': 5} });

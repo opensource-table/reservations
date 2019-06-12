@@ -9,6 +9,8 @@
     "build": "webpack -d",
     "start": "node server/connection.js",
     "seed": "node db/seed.js",
+    "seedm": "mongo reservations --eval 'db.dropDatabase()' && mongoimport --db reservations --collection restaurants --type csv --headerline --file  '/Users/esodey/Desktop/SDC/reservations/restaurantAvailabilityData.csv'",
+    "seedpg": "node db/postgresSeed.js",
     "test": "jest"
   },
   "repository": {
@@ -39,17 +41,13 @@
     "fs": "0.0.1-security",
     "jest": "^24.8.0",
     "jest-css-modules": "^2.0.0",
-    "mongoose": "^5.5.13",
     "pg": "^7.11.0",
     "style-loader": "^0.23.1",
     "webpack": "^4.31.0",
     "webpack-cli": "^3.3.2"
   },
   "dependencies": {
-    "@babel/core": "^7.4.4",
-    "@babel/preset-env": "^7.4.4",
     "axios": "^0.18.0",
-    "babel-eslint": "^10.0.1",
     "babel-jest": "^24.8.0",
     "body-parser": "^1.19.0",
     "cors": "^2.8.5",
@@ -60,7 +58,7 @@
     "file-loader": "^3.0.1",
     "identity-obj-proxy": "^3.0.0",
     "moment": "^2.24.0",
-    "mongodb": "^3.2.7",
+    "mongoose": "^5.5.14",
     "mysql": "^2.17.1",
     "mysql2": "^1.6.5",
     "nodemon": "^1.19.0",
