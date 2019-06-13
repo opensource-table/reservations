@@ -37,11 +37,11 @@ pool.query("DROP TABLE IF EXISTS restaurants", err => {
         pool.query(
           `CREATE TABLE bookings (
                         id SERIAL PRIMARY KEY,
-                        reservation_date DATE NOT NULL,
-                        time_slot TIME NOT NULL,
+                        reservation_date VARCHAR(55) NOT NULL,
+                        time_slot VARCHAR(55) NOT NULL,
                         party_size SMALLINT NOT NULL,
                         restaurant_id INT NOT NULL,
-                        created_at DATE NOT NULL DEFAULT CURRENT_DATE
+                        created_at VARCHAR(55) NOT NULL
                     )`,
           err => {
             if (err) {
@@ -79,26 +79,3 @@ pool.query("DROP TABLE IF EXISTS restaurants", err => {
     );
   });
 });
-// node --max-old-space-size=8192
-//////////////////////////////////////////////////////////////////////////////////////////
-
-
-
-
-// SELECT
-//    customer.customer_id,
-//    first_name,
-//    last_name,
-//    email,
-//    amount,
-//    payment_date
-// FROM
-//    customer
-// INNER JOIN payment ON payment.customer_id = customer.customer_id;
-
-
-// SELECT bookings.id, reservation_date, time_slot, party_size, bookings.restaurant_id, created_at, name, booked, "6:00 PM", "6:15 PM", "6:30 PM", "6:45 PM", "7:00 PM", "7:15 PM", "7:30 PM", "7:45 PM", "8:00 PM", "8:15 PM", "8:30 PM" FROM bookings INNER JOIN restaurants ON restaurants.id = bookings.restaurant_id where bookings.restaurant_id = 3;
-
-// explain analyze SELECT bookings.id, reservation_date, time_slot, party_size, bookings.restaurant_id, created_at, name, booked, "6:00 PM", "6:15 PM", "6:30 PM", "6:45 PM", "7:00 PM", "7:15 PM", "7:30 PM", "7:45 PM", "8:00 PM", "8:15 PM", "8:30 PM" FROM bookings INNER JOIN restaurants ON restaurants.id = bookings.restaurant_id where bookings.restaurant_id = 3;
-// 0.137 ms\quit
-

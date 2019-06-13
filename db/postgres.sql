@@ -17,9 +17,9 @@ CREATE TABLE restaurants (
 
 CREATE TABLE bookings (
     id SERIAL PRIMARY KEY,
-    reservation_date DATE NOT NULL,
-    time_slot TIME NOT NULL,
+    reservation_date VARCHAR(55) NOT NULL,
+    time_slot VARCHAR(55) NOT NULL,
     party_size SMALLINT NOT NULL,
     restaurant_id SMALLINT NOT NULL,
-    created_at DATE NOT NULL DEFAULT CURRENT_DATE
+    created_at  VARCHAR(55) NOT NULL 
 )
