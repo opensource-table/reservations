@@ -1,4 +1,4 @@
-const nr = require('newrelic');
+// const nr = require('newrelic');
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
@@ -18,21 +18,20 @@ app.use(express.static('public'));
 
 //"READ"
 app.get('/:id/reservations', (req, res) => {
+  // console.log("i am inside of get")
   const resID = Number(req.params.id);
-  db.getRestaurantInfo(resID, res), () => {
-    if (!req.params.id) {
-      res.status(400);
-      res.end();
-    } else {
-      res.sendFile('index.html', { root: path.resolve(__dirname, '../public') });
+  db.getRestaurantInfo(resID, (err, results) => {
+    if (err) {
+      console.error(err);
+      return;
     }
-
-  }
+    res.send(results)
+  })
 });
 
 //"CREATE"
-app.post('/:id/reservations', (req, res) => {
-  db.post(req.body, (err) => {
+app.post('/reservations', (req, res) => {
+  db.createBooking(req, (err) => {
     if (err) {
       console.log(err);
       res.status(500).send('Could not create booking');
@@ -44,7 +43,7 @@ app.post('/:id/reservations', (req, res) => {
 
 // "UPDATE"
 app.put('/:id/reservations', (req, res) => {
-  const resID = Number(req.params.id)
+  const resID = Number(req.params.id);
   db.put(req.body, resID, (err) => {
     if (err) {
       console.log(err);
@@ -57,7 +56,7 @@ app.put('/:id/reservations', (req, res) => {
 
 // "DELETE"
 app.delete('/:id/reservations', (req, res) => {
-  const resID = Number(req.params.id)
+  const resID = Number(req.params.id);
   db.remove(resID, (err) => {
     if (err) {
       console.log(err);

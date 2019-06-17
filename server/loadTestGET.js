@@ -1,21 +1,21 @@
 import http from "k6/http";
 import { check, sleep } from "k6";
 
-let desiredRPS = 100;
-let RPSperVU = 1;
-
-let VUsRequired = Math.round(desiredRPS/RPSperVU);
-
 export let options = {
-  vus: VUsRequired,
+  vus: 200,
+  rps: 200,
   duration: "3m",
 };
+
+let min = 8000000;
+let max = 10000000;
+
 
 export default function() {
     let iterationStart = new Date().getTime(); // timestamp in ms
   
-    let randomID = Math.floor(Math.random() * 10000000);
-      let res = http.get(`http://localhost:3020/${randomID}/reservations`);
+    // let randomID = Math.floor(Math.random() * 10000000);
+      let res = http.get(`http://localhost:3020/${Math.floor(Math.random()*((max-min) + min))}/reservations`);
   
     let iterationDuration = (new Date().getTime() - iterationStart) / 1000;
     let sleepTime = 1 - iterationDuration;  // 1 second minus time spent on request execution
@@ -30,4 +30,4 @@ export default function() {
     }
   };
 
-  // k6 run server/loadTest.js
+  // k6 run server/loadTestGET.js
