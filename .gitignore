@@ -29,5 +29,4 @@ package-lock.json
 bookingData.csv
 restaurantData.csv
 restaurantAvailabilityData.csv
-postgresConfig.js
 newrelic.js
