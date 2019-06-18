@@ -80,4 +80,5 @@ pool.query("DROP TABLE IF EXISTS restaurants", err => {
   });
 });
 
+
 //CREATE INDEX rest_id ON bookings (restaurant_id);
