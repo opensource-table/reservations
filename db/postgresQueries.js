@@ -1,4 +1,4 @@
-const pool = require('./postgresConfig');
+const pool = require('./postgresConfig.js');
 
 const getRestaurantInfo = (id, cb) => {
     // const id = parseInt(request.params.id)
