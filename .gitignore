@@ -24,7 +24,7 @@ coverage
 build/
 dist/
 
-public/bundle.js
+
 package-lock.json
 bookingData.csv
 restaurantData.csv
